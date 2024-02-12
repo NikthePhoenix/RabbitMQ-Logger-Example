@@ -14,7 +14,7 @@ class Producer {
     this.channel = await connection.createChannel();
   }
 
-  async publishMessage(routingKey, message) {
+  async publishMessage(routingKey, to, subject, body) {
     if (!this.channel) {
       await this.createChannel();
     }
@@ -22,19 +22,21 @@ class Producer {
     const exchangeName = config.rabbitMQ.exchangeName;
     await this.channel.assertExchange(exchangeName, "direct");
 
-    const logDetails = {
-      logType: routingKey,
-      message: message,
-      dateTime: new Date(),
+    const mailDetails = {
+      mailType: routingKey,
+      to: to,
+      subject: subject,
+      body: body,
+      
     };
     await this.channel.publish(
       exchangeName,
       routingKey,
-      Buffer.from(JSON.stringify(logDetails))
+      Buffer.from(JSON.stringify(mailDetails))
     );
 
     console.log(
-      `The new ${routingKey} log is sent to exchange ${exchangeName}`
+      `The new ${routingKey} mail request is sent to exchange ${exchangeName}`
     );
   }
 }
