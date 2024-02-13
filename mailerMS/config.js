@@ -7,7 +7,7 @@ module.exports = {
     mail: {
       user: 'stormerselite@gmail.com',
       pass: 'zogv iaah xhdq ptpo', 
-      from: 'BookMyEvent <>'
+      from: 'BookMyEvent <youremail@gmail.com>'
     },
   
   
