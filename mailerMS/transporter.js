@@ -23,7 +23,7 @@ async function consumeMessages() {
   await channel.bindQueue(q.queue, exchangeName, "otp");
 
   channel.consume(q.queue, (msg) => {
-    const data = JSON.parse(msg.content);
+    data = JSON.parse(msg.content);
     const subject= data.subject
     const body = data.body
     const to = data.to
@@ -32,7 +32,7 @@ async function consumeMessages() {
     const from = config.mail.from;
 transporter.sendMail({
     from: from, // sender address
-    to: "nikgov23@gmail.com", // list of receivers
+    to: to, // list of receivers
     subject: subject, // Subject line
     text: body, // plain text body
     // html: "<b>This was not sent by a human being</b>", // html body
